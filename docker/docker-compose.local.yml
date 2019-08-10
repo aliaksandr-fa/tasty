@@ -1,0 +1,28 @@
+version: "3"
+
+services:
+
+    nginx:
+        image: ${REGISTRY_URL}${REPOSITORY_NAME}:${PROJECT_NAME}__frontend--latest
+        build: nginx
+        environment:
+            - HOST
+            - HTTPS_METHOD
+            - VIRTUAL_HOST
+            - VIRTUAL_PORT
+        volumes:
+            - ./nginx/html:/var/www/${HOST}
+
+    php:
+        image: ${REGISTRY_URL}${REPOSITORY_NAME}:${PROJECT_NAME}__php--latest
+        build:
+            context: './../'
+            dockerfile: 'docker/php/Dockerfile'
+        volumes:
+            - ./../:/var/www/${HOST}
+            - ./php/config/php.ini:/usr/local/etc/php/php.ini
+            - ./php/config/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+
+volumes:
+    sharedfiles:
+        driver: local

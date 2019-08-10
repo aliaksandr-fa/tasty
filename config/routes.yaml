@@ -1,0 +1,7 @@
+test_takers.list:
+    path: /test-takers.{_format}
+    controller: \Tasty\Controller\TestTakersController:list
+    defaults:
+        _format: json
+    requirements:
+        _format:  xml|csv|json

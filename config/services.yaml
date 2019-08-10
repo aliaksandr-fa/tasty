@@ -1,0 +1,57 @@
+parameters:
+
+
+services:
+
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    Tasty\:
+        resource: '../src/*'
+        exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
+
+    Tasty\Controller\:
+        resource: '../src/Controller'
+        tags: ['controller.service_arguments']
+
+    Symfony\Component\Serializer\Normalizer\ObjectNormalizer:
+        class: Symfony\Component\Serializer\Normalizer\ObjectNormalizer
+        public: false
+        tags:
+            - { name: 'serializer.normalizer' }
+
+    Tasty\EventListener\SerializerListener:
+        tags:
+            - { name: kernel.event_listener, event: kernel.view }
+
+
+    tasty.taker_provider.chained:
+        alias: Tasty\Provider\ChainedTestTakerProvider
+
+    tasty.taker_provider.csv:
+        class: Tasty\Provider\CSVTestTakerProvider
+        arguments:
+            - '%kernel.root_dir%/../%env(string:STORAGE_CSV)%'
+        tags:
+            - { name: test_taker.provider }
+
+    tasty.taker_provider.json:
+        class: Tasty\Provider\JSONTestTakerProvider
+        arguments:
+            - '%kernel.root_dir%/../%env(string:STORAGE_JSON)%'
+        tags:
+            - { name: test_taker.provider }
+
+    tasty.taker_provider.json_additional:
+        class: Tasty\Provider\JSONTestTakerProvider
+        arguments:
+            - '%kernel.root_dir%/../%env(string:STORAGE_JSON_ADDITIONAL)%'
+        tags:
+            - { name: test_taker.provider }
+
+    Tasty\Provider\TestTakerProviderInterface: '@tasty.taker_provider.chained'
+#    Tasty\Provider\TestTakerProviderInterface: '@tasty.taker_provider.csv'
+#    Tasty\Provider\TestTakerProviderInterface: '@tasty.taker_provider.json'
+#    Tasty\Provider\TestTakerProviderInterface: '@tasty.taker_provider.json__additional'
+#    Tasty\Provider\TestTakerProviderInterface: '@tasty.taker_provider.chained'

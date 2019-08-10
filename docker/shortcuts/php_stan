@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+docker run --rm -v "$PWD":/var/www/tasty.localhost phpstan/phpstan:0.11 \
+ analyse -l 2 /var/www/tasty.localhost/src
