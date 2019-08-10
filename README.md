@@ -17,6 +17,7 @@ Add `api.tasty.localhost` record to your hosts file:
 ## Application
 
 Application uses multiple providers as data source. Type of response is resolved dynamically based on url parameter.
+
 Resource is available at `http://api.tasty.localhost/test-takers.json`
 
  
