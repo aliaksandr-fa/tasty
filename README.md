@@ -1,5 +1,16 @@
 # TestTaker API
 
+## Summary
+
+Coding Interview task for OnePoint Ltd.
+
+> The goal of the exercise is to create a list of test takers (test takers can be seen as users). You are free to use the libraries/frameworks you want as soon as the code created by yourself and the code created by other can be distinguished.
+ 
+> _Backend (PHP)_. Create a REST service that returns a list of _test takers_. You have 2 files (`testtaker.json` and `testtaker.csv`)  which contain data and should be used as data sources.
+
+> Note: the service should read data from different storages (json, csv, etc) and expose data to different formats (json, xml, etc).
+> Nice to have: The component should be reused to display other kind of data. 
+
 ## Bootstrapping
 
 Run docker composer:
